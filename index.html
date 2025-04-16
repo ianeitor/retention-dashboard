@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Retention Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <img src="https://ukelele.la/wp-content/uploads/2023/03/logo-blanco.svg" alt="Logo Uke" class="logo">
+      <h1>Retention Dashboard</h1>
+    </div>
+  </header>
+
+  <div class="filters">
+    <label for="periodo">Filtrar por:</label>
+    <select id="periodo">
+      <option value="mes">Mes</option>
+      <option value="trimestre">Trimestre</option>
+      <option value="semestre">Semestre</option>
+      <option value="anio">Año</option>
+    </select>
+  </div>
+
+  <div class="container">
+    <section class="cards">
+      <div class="card"><h4>Tasa de retención</h4><p id="retencion">74%</p></div>
+      <div class="card"><h4>Clientes activos</h4><p id="activos">300</p></div>
+      <div class="card"><h4>Ticket promedio</h4><p id="ticket">$57.60</p></div>
+      <div class="card"><h4>Nuevos clientes</h4><p id="nuevos">8</p></div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Evolución de la Retención</h2>
+      <div class="chart-wrapper">
+        <canvas id="retentionChart"></canvas>
+      </div>
+    </section>
+  </div>
+
+  <script src="js/charts.js"></script>
+</body>
+</html>
