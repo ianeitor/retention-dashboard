@@ -1,63 +1,95 @@
-// Gráfico de Retención Mejorado
-const ctx = document.getElementById('retentionChart').getContext('2d');
-const retentionChart = new Chart(ctx, {
+const retentionCtx = document.getElementById('retentionChart').getContext('2d');
+const retentionChart = new Chart(retentionCtx, {
   type: 'line',
   data: {
     labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May'],
     datasets: [{
-      label: 'Tasa de retención (%)',
+      label: 'Tasa de retención',
       data: [65, 68, 70, 74, 72],
-      borderWidth: 3,
-      fill: true,
-      backgroundColor: 'rgba(90, 120, 255, 0.15)',
       borderColor: '#5a78ff',
+      backgroundColor: 'rgba(90, 120, 255, 0.2)',
+      borderWidth: 2,
       tension: 0.4,
+      fill: true,
       pointRadius: 4,
-      pointBackgroundColor: '#5a78ff',
       pointHoverRadius: 6
     }]
   },
   options: {
     responsive: true,
     plugins: {
-      legend: { position: 'top' },
-      tooltip: { mode: 'index', intersect: false }
+      tooltip: {
+        mode: 'index',
+        intersect: false
+      },
+      legend: {
+        labels: {
+          color: '#ccc'
+        }
+      }
     },
     scales: {
-      y: { beginAtZero: true, max: 100 }
+      y: {
+        beginAtZero: true,
+        max: 100,
+        ticks: {
+          color: '#ccc'
+        }
+      },
+      x: {
+        ticks: {
+          color: '#ccc'
+        }
+      }
     }
   }
 });
 
-// Gráfico Clientes Nuevos vs Recurrentes
-const ctxClients = document.getElementById('clientsChart').getContext('2d');
-const clientsChart = new Chart(ctxClients, {
+const newVsReturningCtx = document.getElementById('newVsReturningChart').getContext('2d');
+const newVsReturningChart = new Chart(newVsReturningCtx, {
   type: 'bar',
   data: {
     labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May'],
     datasets: [
       {
-        label: 'Clientes nuevos',
-        data: [120, 150, 170, 160, 180],
-        backgroundColor: '#34c38f',
-        borderRadius: 6
+        label: 'Nuevos',
+        data: [120, 135, 110, 145, 130],
+        backgroundColor: 'rgba(90, 200, 255, 0.6)'
       },
       {
-        label: 'Clientes recurrentes',
-        data: [300, 320, 340, 330, 360],
-        backgroundColor: '#ff9f43',
-        borderRadius: 6
+        label: 'Recurrentes',
+        data: [85, 90, 102, 97, 105],
+        backgroundColor: 'rgba(90, 120, 255, 0.8)'
       }
     ]
   },
   options: {
     responsive: true,
     plugins: {
-      legend: { position: 'top' },
-      tooltip: { mode: 'index', intersect: false }
+      tooltip: {
+        mode: 'index',
+        intersect: false
+      },
+      legend: {
+        labels: {
+          color: '#ccc'
+        }
+      }
     },
     scales: {
-      y: { beginAtZero: true }
+      x: {
+        stacked: true,
+        ticks: {
+          color: '#ccc'
+        }
+      },
+      y: {
+        stacked: true,
+        beginAtZero: true,
+        ticks: {
+          color: '#ccc'
+        }
+      }
     }
   }
 });
