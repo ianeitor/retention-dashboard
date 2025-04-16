@@ -1,50 +1,44 @@
+// === Gráfico 1: Retención Mensual con Variación ===
 const retentionCtx = document.getElementById('retentionChart').getContext('2d');
 const retentionChart = new Chart(retentionCtx, {
   type: 'line',
   data: {
     labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May'],
     datasets: [{
-      label: 'Tasa de retención',
+      label: 'Tasa de Retención (%)',
       data: [65, 68, 70, 74, 72],
       borderColor: '#5a78ff',
       backgroundColor: 'rgba(90, 120, 255, 0.2)',
       borderWidth: 2,
       tension: 0.4,
       fill: true,
-      pointRadius: 4,
-      pointHoverRadius: 6
+      pointRadius: 5,
+      pointBackgroundColor: '#fff',
+      pointHoverRadius: 7
     }]
   },
   options: {
-    responsive: true,
     plugins: {
       tooltip: {
         mode: 'index',
         intersect: false
       },
       legend: {
-        labels: {
-          color: '#ccc'
-        }
+        labels: { color: '#ccc' }
       }
     },
     scales: {
       y: {
         beginAtZero: true,
         max: 100,
-        ticks: {
-          color: '#ccc'
-        }
+        ticks: { color: '#ccc' }
       },
-      x: {
-        ticks: {
-          color: '#ccc'
-        }
-      }
+      x: { ticks: { color: '#ccc' } }
     }
   }
 });
 
+// === Gráfico 2: Nuevos vs Recurrentes ===
 const newVsReturningCtx = document.getElementById('newVsReturningChart').getContext('2d');
 const newVsReturningChart = new Chart(newVsReturningCtx, {
   type: 'bar',
@@ -71,25 +65,30 @@ const newVsReturningChart = new Chart(newVsReturningCtx, {
         intersect: false
       },
       legend: {
-        labels: {
-          color: '#ccc'
-        }
+        labels: { color: '#ccc' }
       }
     },
     scales: {
       x: {
         stacked: true,
-        ticks: {
-          color: '#ccc'
-        }
+        ticks: { color: '#ccc' }
       },
       y: {
         stacked: true,
         beginAtZero: true,
-        ticks: {
-          color: '#ccc'
-        }
+        ticks: { color: '#ccc' }
       }
     }
+  }
+});
+
+// === BONUS: Tabla de Cohortes interactivamente generada (si la extendemos después)
+document.addEventListener('DOMContentLoaded', () => {
+  const cohortTable = document.getElementById('cohortTable');
+  if (cohortTable) {
+    cohortTable.style.cursor = 'pointer';
+    cohortTable.addEventListener('click', () => {
+      alert('Acá podríamos meter una tabla expandible o filtros de cohortes a futuro 😉');
+    });
   }
 });
