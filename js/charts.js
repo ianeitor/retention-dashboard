@@ -1,3 +1,4 @@
+// Gráfico de Retención Mejorado
 const ctx = document.getElementById('retentionChart').getContext('2d');
 const retentionChart = new Chart(ctx, {
   type: 'line',
@@ -28,6 +29,7 @@ const retentionChart = new Chart(ctx, {
   }
 });
 
+// Gráfico Clientes Nuevos vs Recurrentes
 const ctxClients = document.getElementById('clientsChart').getContext('2d');
 const clientsChart = new Chart(ctxClients, {
   type: 'bar',
