@@ -19,20 +19,11 @@ const retentionChart = new Chart(retentionCtx, {
   },
   options: {
     plugins: {
-      tooltip: {
-        mode: 'index',
-        intersect: false
-      },
-      legend: {
-        labels: { color: '#ccc' }
-      }
+      tooltip: { mode: 'index', intersect: false },
+      legend: { labels: { color: '#ccc' } }
     },
     scales: {
-      y: {
-        beginAtZero: true,
-        max: 100,
-        ticks: { color: '#ccc' }
-      },
+      y: { beginAtZero: true, max: 100, ticks: { color: '#ccc' } },
       x: { ticks: { color: '#ccc' } }
     }
   }
@@ -60,35 +51,51 @@ const newVsReturningChart = new Chart(newVsReturningCtx, {
   options: {
     responsive: true,
     plugins: {
-      tooltip: {
-        mode: 'index',
-        intersect: false
-      },
-      legend: {
-        labels: { color: '#ccc' }
-      }
+      tooltip: { mode: 'index', intersect: false },
+      legend: { labels: { color: '#ccc' } }
     },
     scales: {
-      x: {
-        stacked: true,
+      x: { stacked: true, ticks: { color: '#ccc' } },
+      y: { stacked: true, beginAtZero: true, ticks: { color: '#ccc' } }
+    }
+  }
+});
+
+// === Gráfico 3: Churn Alert - Clientes Inactivos ===
+const churnCtx = document.getElementById('churnChart').getContext('2d');
+const churnChart = new Chart(churnCtx, {
+  type: 'bar',
+  data: {
+    labels: ['30-60 días', '60-90 días', '+90 días'],
+    datasets: [{
+      label: 'Clientes inactivos',
+      data: [80, 64, 104],
+      backgroundColor: ['#f39c12', '#e67e22', '#e74c3c']
+    }]
+  },
+  options: {
+    plugins: {
+      tooltip: { mode: 'index', intersect: false },
+      legend: { display: false }
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
         ticks: { color: '#ccc' }
       },
-      y: {
-        stacked: true,
-        beginAtZero: true,
+      x: {
         ticks: { color: '#ccc' }
       }
     }
   }
 });
 
-// === BONUS: Tabla de Cohortes interactivamente generada (si la extendemos después)
+// === Mini evento para tabla de cohortes
 document.addEventListener('DOMContentLoaded', () => {
   const cohortTable = document.getElementById('cohortTable');
   if (cohortTable) {
-    cohortTable.style.cursor = 'pointer';
     cohortTable.addEventListener('click', () => {
-      alert('Acá podríamos meter una tabla expandible o filtros de cohortes a futuro 😉');
+      alert('Más análisis de cohortes disponible en versión extendida 🔍');
     });
   }
 });
