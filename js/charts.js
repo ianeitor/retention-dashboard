@@ -7,24 +7,23 @@ const retentionChart = new Chart(retentionCtx, {
     datasets: [{
       label: 'Tasa de Retención (%)',
       data: [65, 68, 70, 74, 72],
-      borderColor: '#5a78ff',
-      backgroundColor: 'rgba(90, 120, 255, 0.2)',
+      borderColor: '#1c4e80',
+      backgroundColor: 'rgba(28, 78, 128, 0.2)',
       borderWidth: 2,
       tension: 0.4,
       fill: true,
       pointRadius: 5,
-      pointBackgroundColor: '#fff',
       pointHoverRadius: 7
     }]
   },
   options: {
     plugins: {
       tooltip: { mode: 'index', intersect: false },
-      legend: { labels: { color: '#ccc' } }
+      legend: { labels: { color: '#333' } }
     },
     scales: {
-      y: { beginAtZero: true, max: 100, ticks: { color: '#ccc' } },
-      x: { ticks: { color: '#ccc' } }
+      y: { beginAtZero: true, ticks: { color: '#333' } },
+      x: { ticks: { color: '#333' } }
     }
   }
 });
@@ -39,12 +38,12 @@ const newVsReturningChart = new Chart(newVsReturningCtx, {
       {
         label: 'Nuevos',
         data: [120, 135, 110, 145, 130],
-        backgroundColor: 'rgba(90, 200, 255, 0.6)'
+        backgroundColor: 'rgba(28, 160, 220, 0.6)'
       },
       {
         label: 'Recurrentes',
         data: [85, 90, 102, 97, 105],
-        backgroundColor: 'rgba(90, 120, 255, 0.8)'
+        backgroundColor: 'rgba(28, 78, 128, 0.8)'
       }
     ]
   },
@@ -52,11 +51,11 @@ const newVsReturningChart = new Chart(newVsReturningCtx, {
     responsive: true,
     plugins: {
       tooltip: { mode: 'index', intersect: false },
-      legend: { labels: { color: '#ccc' } }
+      legend: { labels: { color: '#333' } }
     },
     scales: {
-      x: { stacked: true, ticks: { color: '#ccc' } },
-      y: { stacked: true, beginAtZero: true, ticks: { color: '#ccc' } }
+      x: { stacked: true, ticks: { color: '#333' } },
+      y: { stacked: true, beginAtZero: true, ticks: { color: '#333' } }
     }
   }
 });
@@ -79,23 +78,8 @@ const churnChart = new Chart(churnCtx, {
       legend: { display: false }
     },
     scales: {
-      y: {
-        beginAtZero: true,
-        ticks: { color: '#ccc' }
-      },
-      x: {
-        ticks: { color: '#ccc' }
-      }
+      y: { beginAtZero: true, ticks: { color: '#333' } },
+      x: { ticks: { color: '#333' } }
     }
-  }
-});
-
-// === Mini evento para tabla de cohortes
-document.addEventListener('DOMContentLoaded', () => {
-  const cohortTable = document.getElementById('cohortTable');
-  if (cohortTable) {
-    cohortTable.addEventListener('click', () => {
-      alert('Más análisis de cohortes disponible en versión extendida 🔍');
-    });
   }
 });
