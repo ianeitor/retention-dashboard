@@ -1,9 +1,9 @@
 :root {
-  --bg: #ffffff;
-  --text: #1c1c28;
-  --card-bg: #f5f7fa;
-  --accent: #1c4e80;
-  --shadow: rgba(0, 0, 0, 0.1);
+  --bg: #f8f9fa; /* Blanco ligeramente grisáceo */
+  --text: #343a40; /* Gris oscuro más ligero */
+  --card-bg: #f9f9f9; /* Gris claro más cálido */
+  --accent: #007bff; /* Azul vibrante (puedes probar #2962ff también) */
+  --shadow: rgba(0, 0, 0, 0.08) 0px 2px 4px; /* Sombra sutil con desplazamiento */
 }
 
 * {
@@ -16,14 +16,15 @@ body {
   background: var(--bg);
   color: var(--text);
   display: flex;
+  font-size: 16px; /* Aumento ligero del tamaño de fuente base */
 }
 
 .sidebar {
-  width: 200px;
+  width: 220px; /* Ligero aumento del ancho */
   height: 100vh;
   background-color: var(--card-bg);
   padding: 1rem;
-  box-shadow: 2px 0 5px var(--shadow);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.08); /* Sombra más enfocada a la derecha */
   position: fixed;
   top: 0;
   left: 0;
@@ -45,21 +46,22 @@ body {
 }
 
 .main-content {
-  margin-left: 200px;
-  width: calc(100% - 200px);
+  margin-left: 220px; /* Ajuste del margen al nuevo ancho del sidebar */
+  width: calc(100% - 220px);
 }
 
 header {
   background: var(--accent);
   color: white;
-  padding: 1.2rem 2rem;
+  padding: 1.5rem 2rem; /* Aumento del padding vertical */
   text-align: center;
-  box-shadow: 0 2px 6px var(--shadow);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06); /* Sombra más sutil */
 }
 
 .filters {
   margin: 2rem auto 1rem;
   text-align: center;
+  padding: 1rem 0; /* Añadido padding vertical */
 }
 
 .filters select {
@@ -90,20 +92,20 @@ header {
   border-radius: 12px;
   padding: 1.5rem;
   text-align: center;
-  box-shadow: 0 2px 8px var(--shadow);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06); /* Sombra por defecto más sutil */
   transition: all 0.3s ease;
 }
 
 .card:hover {
   transform: scale(1.03);
-  box-shadow: 0 4px 14px rgba(28, 78, 128, 0.2);
+  box-shadow: 0 4px 14px rgba(0, 123, 255, 0.25); /* Sombra al hover con el nuevo color de acento */
 }
 
 .card h4 {
   margin: 0 0 0.5rem;
   font-size: 1rem;
   font-weight: 500;
-  color: #555;
+  color: #6c757d; /* Gris más moderno para el título de la tarjeta */
 }
 
 .card p {
@@ -124,7 +126,7 @@ header {
   background: var(--card-bg);
   padding: 1rem;
   border-radius: 12px;
-  box-shadow: 0 2px 8px var(--shadow);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06); /* Sombra consistente */
   overflow-x: auto;
 }
 
@@ -140,23 +142,30 @@ canvas {
   height: 350px !important;
 }
 
+.table-wrapper { /* Nuevo contenedor para aplicar border-radius a la tabla */
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
   color: var(--text);
-  margin-top: 1rem;
 }
 
 thead {
-  background: #ddd;
+  background: #f8f9fa; /* Gris claro para el encabezado */
+  border-bottom: 2px solid #ccc; /* Borde inferior más marcado */
 }
 
-th, td {
+th,
+td {
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #eee; /* Borde inferior más claro para las filas */
   text-align: center;
 }
 
 tr:hover {
-  background-color: #eaeaea;
+  background-color: #e9ecef; /* Gris muy claro al pasar el ratón */
 }
