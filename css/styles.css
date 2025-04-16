@@ -2,8 +2,10 @@
   --bg: #f8f9fa; /* Blanco ligeramente grisáceo */
   --text: #343a40; /* Gris oscuro más ligero */
   --card-bg: #f9f9f9; /* Gris claro más cálido */
-  --accent: #007bff; /* Azul vibrante (puedes probar #2962ff también) */
-  --shadow: rgba(0, 0, 0, 0.08) 0px 2px 4px; /* Sombra sutil con desplazamiento */
+  --accent: #007bff; /* Azul vibrante */
+  --shadow: rgba(0, 0, 0, 0.08) 0px 2px 4px; /* Sombra sutil */
+  --font-base-size: 16px; /* Tamaño de fuente base */
+  --line-height-base: 1.6; /* Altura de línea base */
 }
 
 * {
@@ -16,15 +18,16 @@ body {
   background: var(--bg);
   color: var(--text);
   display: flex;
-  font-size: 16px; /* Aumento ligero del tamaño de fuente base */
+  font-size: var(--font-base-size); /* Aplicar tamaño de fuente base */
+  line-height: var(--line-height-base); /* Aplicar altura de línea base */
 }
 
 .sidebar {
-  width: 220px; /* Ligero aumento del ancho */
+  width: 220px;
   height: 100vh;
   background-color: var(--card-bg);
   padding: 1rem;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.08); /* Sombra más enfocada a la derecha */
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.08);
   position: fixed;
   top: 0;
   left: 0;
@@ -46,29 +49,29 @@ body {
 }
 
 .main-content {
-  margin-left: 220px; /* Ajuste del margen al nuevo ancho del sidebar */
+  margin-left: 220px;
   width: calc(100% - 220px);
 }
 
 header {
   background: var(--accent);
   color: white;
-  padding: 1.5rem 2rem; /* Aumento del padding vertical */
+  padding: 1.5rem 2rem;
   text-align: center;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06); /* Sombra más sutil */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
 .filters {
   margin: 2rem auto 1rem;
   text-align: center;
-  padding: 1rem 0; /* Añadido padding vertical */
+  padding: 1rem 0;
 }
 
 .filters select {
   background: var(--card-bg);
   color: var(--text);
   border: 1px solid #ccc;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1.2rem; /* Aumento ligero del padding */
   border-radius: 8px;
   font-size: 1rem;
   margin: 0 0.5rem;
@@ -76,14 +79,14 @@ header {
 
 .container {
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
+  margin: 2rem auto; /* Aumento del margen superior e inferior */
+  padding: 2rem 1.5rem; /* Aumento del padding horizontal */
 }
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Ligeramente más ancho mínimo */
+  gap: 2rem; /* Aumento del espacio entre tarjetas */
   margin-bottom: 3rem;
 }
 
@@ -92,60 +95,61 @@ header {
   border-radius: 12px;
   padding: 1.5rem;
   text-align: center;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06); /* Sombra por defecto más sutil */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
   transition: all 0.3s ease;
 }
 
 .card:hover {
   transform: scale(1.03);
-  box-shadow: 0 4px 14px rgba(0, 123, 255, 0.25); /* Sombra al hover con el nuevo color de acento */
+  box-shadow: 0 4px 14px rgba(0, 123, 255, 0.25);
 }
 
 .card h4 {
-  margin: 0 0 0.5rem;
-  font-size: 1rem;
+  margin: 0 0 0.75rem; /* Aumento del margen inferior */
+  font-size: 1.1rem; /* Ligeramente más grande */
   font-weight: 500;
-  color: #6c757d; /* Gris más moderno para el título de la tarjeta */
+  color: #6c757d;
 }
 
 .card p {
-  font-size: 1.7rem;
+  font-size: 1.9rem; /* Ligeramente más grande */
   font-weight: 700;
   margin: 0;
   color: var(--text);
 }
 
 .section-title {
-  font-size: 1.3rem;
+  font-size: 1.4rem; /* Ligeramente más grande */
   font-weight: 600;
-  margin: 2rem 0 1rem;
+  margin: 2.5rem 0 1.2rem; /* Aumento de márgenes */
   text-align: center;
 }
 
 .chart-wrapper {
   background: var(--card-bg);
-  padding: 1rem;
+  padding: 1.5rem; /* Aumento del padding */
   border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06); /* Sombra consistente */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
   overflow-x: auto;
+  margin-bottom: 1.5rem; /* Añadido margen inferior */
 }
 
 .chart-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); /* Ligeramente más ancho mínimo */
+  gap: 2rem; /* Aumento del espacio entre gráficos */
   margin-bottom: 3rem;
 }
 
 canvas {
   width: 100% !important;
-  height: 350px !important;
+  height: 380px !important; /* Ligeramente más alto */
 }
 
-.table-wrapper { /* Nuevo contenedor para aplicar border-radius a la tabla */
+.table-wrapper {
   border-radius: 12px;
   overflow: hidden;
-  margin-top: 1rem;
+  margin-top: 1.5rem; /* Aumento del margen superior */
 }
 
 table {
@@ -155,17 +159,17 @@ table {
 }
 
 thead {
-  background: #f8f9fa; /* Gris claro para el encabezado */
-  border-bottom: 2px solid #ccc; /* Borde inferior más marcado */
+  background: #f8f9fa;
+  border-bottom: 2px solid #ccc;
 }
 
 th,
 td {
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid #eee; /* Borde inferior más claro para las filas */
+  padding: 0.9rem 1.2rem; /* Aumento del padding */
+  border-bottom: 1px solid #eee;
   text-align: center;
 }
 
 tr:hover {
-  background-color: #e9ecef; /* Gris muy claro al pasar el ratón */
+  background-color: #e9ecef;
 }
