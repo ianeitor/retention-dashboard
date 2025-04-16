@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,15 +5,12 @@
   <title>Retention Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <header>
-    <div class="header-left">
-      <img src="https://ukelele.la/wp-content/uploads/2023/03/logo-blanco.svg" alt="Logo Uke" class="logo">
-      <h1>Retention Dashboard</h1>
-    </div>
+    <h1>Retention Dashboard</h1>
   </header>
 
   <div class="filters">
@@ -39,6 +35,28 @@
       <h2 class="section-title">Evolución de la Retención</h2>
       <div class="chart-wrapper">
         <canvas id="retentionChart"></canvas>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Clientes Nuevos vs Recurrentes</h2>
+      <div class="chart-wrapper">
+        <canvas id="newVsReturningChart"></canvas>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Tabla de Cohortes (demo)</h2>
+      <div class="chart-wrapper">
+        <table id="cohortTable">
+          <thead>
+            <tr><th>Mes</th><th>Clientes nuevos</th><th>Retención 1M</th><th>Retención 2M</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Enero</td><td>120</td><td>80%</td><td>65%</td></tr>
+            <tr><td>Febrero</td><td>140</td><td>76%</td><td>61%</td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
   </div>
