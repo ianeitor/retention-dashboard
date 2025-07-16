@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard de Métricas de Retención</title>
+  <meta name="description" content="Dashboard moderno para análisis de retención de clientes con métricas CLTV, RFM y campañas">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Dashboard Analytics Team">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Dashboard de Métricas de Retención">
+  <meta property="og:description" content="Dashboard moderno para análisis de retención de clientes">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="./assets/og-image.png">
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Dashboard de Métricas de Retención">
+  <meta name="twitter:description" content="Dashboard moderno para análisis de retención de clientes">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="./assets/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png">
+  <link rel="manifest" href="./assets/manifest.json">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="./styles/styles.css">
+  
+  <!-- React y ReactDOM desde CDN -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  
+  <!-- Librerías adicionales -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script src="https://unpkg.com/recharts@latest/umd/Recharts.js"></script>
+</head>
+<body>
+  <div id="root">
+    <!-- Loading inicial -->
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Cargando Dashboard...</p>
+    </div>
+  </div>
+
+  <!-- Scripts de la aplicación -->
+  <script type="text/babel" src="./js/components/ui/button.js"></script>
+  <script type="text/babel" src="./js/components/ui/card.js"></script>
+  <script type="text/babel" src="./js/components/ui/badge.js"></script>
+  <script type="text/babel" src="./js/components/ui/skeleton.js"></script>
+  <script type="text/babel" src="./js/components/DashboardHeader.js"></script>
+  <script type="text/babel" src="./js/components/CLTVMetrics.js"></script>
+  <script type="text/babel" src="./js/components/RecurrenceAnalysis.js"></script>
+  <script type="text/babel" src="./js/components/RFMAnalysis.js"></script>
+  <script type="text/babel" src="./js/components/CampaignResults.js"></script>
+  <script type="text/babel" src="./js/components/FollowUpSystem.js"></script>
+  <script type="text/babel" src="./js/components/AdminPanel.js"></script>
+  <script type="text/babel" src="./js/hooks/useApiClient.js"></script>
+  <script type="text/babel" src="./js/App.js"></script>
+  
+  <!-- Babel standalone para JSX -->
+  <script src="https://unpkg.com/@babel/standalone@7.22.5/babel.min.js"></script>
+  
+  <!-- Inicialización -->
+  <script type="text/babel">
+    const { createRoot } = ReactDOM;
+    const root = createRoot(document.getElementById('root'));
+    root.render(React.createElement(App));
+  </script>
+</body>
+</html>
