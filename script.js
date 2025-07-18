@@ -31,6 +31,11 @@ function prevStep() {
   }
 }
 
+// Iniciar (botón "Empezar")
+document.getElementById("startBtn").addEventListener("click", () => {
+  goToStep("goal");
+});
+
 // Objetivo
 document.querySelectorAll(".goal-option").forEach((el) => {
   el.addEventListener("click", () => {
@@ -86,6 +91,11 @@ function updateMetricOptions(goal) {
   });
 }
 
+// Guardar métrica
+document.getElementById("metric").addEventListener("change", (e) => {
+  appState.data.metrica = e.target.value;
+});
+
 // Briefing
 document.getElementById("briefing").addEventListener("input", (e) => {
   appState.data.briefing = e.target.value;
@@ -117,6 +127,7 @@ function showScreen(screenId) {
   document.getElementById(screenId).classList.remove("hidden");
 }
 
+// Botones navegación
 document.getElementById("generateBtn").addEventListener("click", generatePlay);
 document.querySelectorAll(".next-btn").forEach((btn) => btn.addEventListener("click", nextStep));
 document.querySelectorAll(".prev-btn").forEach((btn) => btn.addEventListener("click", prevStep));
