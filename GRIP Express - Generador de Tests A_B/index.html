@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRIP Express - Generador de Tests A/B</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="dark">
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-logo">
+                    <div class="logo-icon">G</div>
+                    <h1 class="logo-text">GRIP Express</h1>
+                </div>
+                <button class="theme-toggle" id="themeToggle">
+                    <svg class="theme-icon" id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Progress Indicator -->
+    <div class="progress-indicator" id="progressIndicator" style="display: none;">
+        <div class="container">
+            <div class="progress-steps">
+                <div class="step" data-step="1">
+                    <div class="step-circle">1</div>
+                    <span class="step-label">Objetivo</span>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step" data-step="2">
+                    <div class="step-circle">2</div>
+                    <span class="step-label">Canales</span>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step" data-step="3">
+                    <div class="step-circle">3</div>
+                    <span class="step-label">Métrica</span>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step" data-step="4">
+                    <div class="step-circle">4</div>
+                    <span class="step-label">Briefing</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            
+            <!-- Welcome Screen -->
+            <section class="screen" id="welcomeScreen">
+                <div class="welcome-content">
+                    <div class="welcome-badge">
+                        <svg class="sparkles-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.962 0L9.937 15.5Z"></path>
+                        </svg>
+                        <span>Metodología GRIP</span>
+                        <div class="pulse-dot"></div>
+                    </div>
+                    
+                    <div class="welcome-title">
+                        <h1>Decime qué querés <span class="gradient-text">mover</span></h1>
+                        <h2>yo te tiro la <span class="gradient-text">jugada</span></h2>
+                    </div>
+                    
+                    <div class="welcome-subtitle">
+                        <p>Generá ideas de tests automatizados para retener más y mejor.</p>
+                        <p><span class="highlight">Estrategia inteligente en 4 pasos.</span></p>
+                    </div>
+                    
+                    <div class="welcome-features">
+                        <div class="feature">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <circle cx="12" cy="12" r="6"></circle>
+                                    <circle cx="12" cy="12" r="2"></circle>
+                                </svg>
+                            </div>
+                            <span>Goal-driven</span>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="13,2 3,14 12,14 11,22 21,10 12,10 13,2"></polygon>
+                                </svg>
+                            </div>
+                            <span>IA estratégica</span>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.962 0L9.937 15.5Z"></path>
+                                </svg>
+                            </div>
+                            <span>Resultados instantáneos</span>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-primary" id="startButton">
+                        <span>Empezar</span>
+                        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                    
+                    <div class="welcome-hint">
+                        <p>4 pasos • 2 minutos • Ideas ilimitadas</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 1: Goal -->
+            <section class="screen step-screen" id="goalScreen" style="display: none;">
+                <div class="step-header">
+                    <div class="step-badge">Paso 1 de 4</div>
+                    <h2>¿Qué querés lograr?</h2>
+                    <p>Elegí el objetivo principal que quieres trabajar con tu test</p>
+                </div>
+                
+                <div class="goals-grid">
+                    <div class="goal-card" data-goal="Activación">
+                        <div class="goal-icon blue">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <line x1="19" y1="8" x2="19" y2="14"></line>
+                                <line x1="22" y1="11" x2="16" y2="11"></line>
+                            </svg>
+                        </div>
+                        <div class="goal-content">
+                            <h3>Activación</h3>
+                            <p>Convertir usuarios nuevos en activos</p>
+                            <span class="goal-detail">Optimizar el onboarding y primeras experiencias</span>
+                        </div>
+                    </div>
+                    
+                    <div class="goal-card" data-goal="Recompra">
+                        <div class="goal-icon green">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 4h22M1 10h22M1 16h22"></path>
+                                <path d="M6 4v16M18 4v16"></path>
+                            </svg>
+                        </div>
+                        <div class="goal-content">
+                            <h3>Recompra</h3>
+                            <p>Hacer que usuarios existentes compren nuevamente</p>
+                            <span class="goal-detail">Incrementar frecuencia y valor de compras</span>
+                        </div>
+                    </div>
+                    
+                    <div class="goal-card" data-goal="Reactivación">
+                        <div class="goal-icon orange">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                <polyline points="9,22 9,12 15,12 15,22"></polyline>
+                            </svg>
+                        </div>
+                        <div class="goal-content">
+                            <h3>Reactivación</h3>
+                            <p>Recuperar usuarios inactivos</p>
+                            <span class="goal-detail">Win-back campaigns para usuarios dormidos</span>
+                        </div>
+                    </div>
+                    
+                    <div class="goal-card" data-goal="Fidelización">
+                        <div class="goal-icon pink">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                            </svg>
+                        </div>
+                        <div class="goal-content">
+                            <h3>Fidelización</h3>
+                            <p>Aumentar lealtad y lifetime value</p>
+                            <span class="goal-detail">Programas de loyalty y retención a largo plazo</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step-navigation">
+                    <button class="btn-primary" id="goalNextBtn" disabled>
+                        <span>Continuar</span>
+                        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Step 2: Channels -->
+            <section class="screen step-screen" id="channelsScreen" style="display: none;">
+                <div class="step-header">
+                    <div class="step-badge">Paso 2 de 4</div>
+                    <h2>¿Por dónde querés jugar<br><span class="gradient-text">esta jugada?</span></h2>
+                    <p>Seleccioná todos los canales que querés incluir en tu test</p>
+                </div>
+                
+                <div class="channels-grid">
+                    <div class="channel-card" data-channel="Email">
+                        <div class="channel-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                                <path d="m22 7-10 5L2 7"></path>
+                            </svg>
+                        </div>
+                        <div class="channel-content">
+                            <h3>Email</h3>
+                            <p>Newsletters, automations, campaigns</p>
+                        </div>
+                        <div class="channel-checkbox">
+                            <svg class="plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5v14"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="channel-card" data-channel="Push">
+                        <div class="channel-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect>
+                                <path d="M12 18h.01"></path>
+                            </svg>
+                        </div>
+                        <div class="channel-content">
+                            <h3>Push Notifications</h3>
+                            <p>Mobile & web push messages</p>
+                        </div>
+                        <div class="channel-checkbox">
+                            <svg class="plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5v14"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="channel-card" data-channel="SMS">
+                        <div class="channel-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                        </div>
+                        <div class="channel-content">
+                            <h3>SMS</h3>
+                            <p>Text messages & verification</p>
+                        </div>
+                        <div class="channel-checkbox">
+                            <svg class="plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5v14"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="channel-card" data-channel="App">
+                        <div class="channel-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect width="20" height="14" x="2" y="3" rx="2"></rect>
+                                <line x1="8" y1="21" x2="16" y2="21"></line>
+                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                            </svg>
+                        </div>
+                        <div class="channel-content">
+                            <h3>In-App</h3>
+                            <p>Banners, modals, overlays</p>
+                        </div>
+                        <div class="channel-checkbox">
+                            <svg class="plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5v14"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="channel-card" data-channel="Ads">
+                        <div class="channel-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                            </svg>
+                        </div>
+                        <div class="channel-content">
+                            <h3>Paid Ads</h3>
+                            <p>Facebook, Google, display</p>
+                        </div>
+                        <div class="channel-checkbox">
+                            <svg class="plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5v14"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="channel-card" data-channel="Web">
+                        <div class="channel-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                                <path d="M2 12h20"></path>
+                            </svg>
+                        </div>
+                        <div class="channel-content">
+                            <h3>Website</h3>
+                            <p>Landing pages, pop-ups</p>
+                        </div>
+                        <div class="channel-checkbox">
+                            <svg class="plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5v14"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="channel-card" data-channel="Tienda">
+                        <div class="channel-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 21h18l-2-7H5l-2 7zM5 12V7a4 4 0 0 1 8 0v5M9 12h6"></path>
+                            </svg>
+                        </div>
+                        <div class="channel-content">
+                            <h3>Tienda Física</h3>
+                            <p>Point of sale, staff</p>
+                        </div>
+                        <div class="channel-checkbox">
+                            <svg class="plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5v14"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="channel-card" data-channel="WhatsApp">
+                        <div class="channel-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                            </svg>
+                        </div>
+                        <div class="channel-content">
+                            <h3>WhatsApp</h3>
+                            <p>Business messaging</p>
+                        </div>
+                        <div class="channel-checkbox">
+                            <svg class="plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5v14"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step-navigation">
+                    <button class="btn-secondary" id="channelsBackBtn">
+                        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7"></path>
+                        </svg>
+                        <span>Volver</span>
+                    </button>
+                    <button class="btn-primary" id="channelsNextBtn" disabled>
+                        <span>Continuar</span>
+                        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Step 3: Metrics -->
+            <section class="screen step-screen" id="metricsScreen" style="display: none;">
+                <div class="step-header">
+                    <div class="step-badge">Paso 3 de 4</div>
+                    <h2>¿Qué métrica querés <span class="gradient-text">mover?</span></h2>
+                    <p>Elegí la métrica principal para tu objetivo de <span id="goalContext">Activación</span></p>
+                </div>
+                
+                <div class="metrics-grid" id="metricsGrid">
+                    <!-- Metrics will be populated by JavaScript -->
+                </div>
+                
+                <div class="step-navigation">
+                    <button class="btn-secondary" id="metricsBackBtn">
+                        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7"></path>
+                        </svg>
+                        <span>Volver</span>
+                    </button>
+                    <button class="btn-primary" id="metricsNextBtn" disabled>
+                        <span>Continuar</span>
+                        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Step 4: Briefing -->
+            <section class="screen step-screen" id="briefingScreen" style="display: none;">
+                <div class="step-header">
+                    <div class="step-badge">Paso 4 de 4</div>
+                    <h2>Contame lo que querés <span class="gradient-text">lograr</span></h2>
+                    <p>Describí tu idea con tus propias palabras. Mientras más específico seas, mejor será la jugada.</p>
+                </div>
+                
+                <div class="briefing-card">
+                    <div class="briefing-input">
+                        <textarea 
+                            id="briefingText" 
+                            placeholder="Ejemplo: Quiero que los que compraron solo una vez vuelvan con una oferta especial en app..."
+                            rows="6"
+                        ></textarea>
+                        <button class="voice-btn" title="Entrada por voz (próximamente)" disabled>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+                                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                                <line x1="12" y1="19" x2="12" y2="23"></line>
+                                <line x1="8" y1="23" x2="16" y2="23"></line>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="briefing-meta">
+                        <div class="briefing-tip">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path>
+                            </svg>
+                            <span>Tip: Incluí contexto sobre timing, incentivos o segmentación específica</span>
+                        </div>
+                        <span class="char-count"><span id="charCount">0</span>/500</span>
+                    </div>
+                </div>
+                
+                <div class="examples-section">
+                    <h3>
+                        <svg class="sparkles-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.962 0L9.937 15.5Z"></path>
+                        </svg>
+                        Ejemplos para inspirarte
+                    </h3>
+                    <div class="examples-list">
+                        <button class="example-btn" data-example="Quiero que los que compraron solo una vez vuelvan con una oferta especial en app">
+                            "Quiero que los que compraron solo una vez vuelvan con una oferta especial en app"
+                        </button>
+                        <button class="example-btn" data-example="Necesito activar usuarios que se registraron pero nunca compraron">
+                            "Necesito activar usuarios que se registraron pero nunca compraron"
+                        </button>
+                        <button class="example-btn" data-example="Reactivar clientes que no compran hace 6 meses con descuento progresivo">
+                            "Reactivar clientes que no compran hace 6 meses con descuento progresivo"
+                        </button>
+                        <button class="example-btn" data-example="Crear un programa de puntos para que compren más seguido">
+                            "Crear un programa de puntos para que compren más seguido"
+                        </button>
+                        <button class="example-btn" data-example="Enviar recordatorios personalizados cuando es hora de reponer producto">
+                            "Enviar recordatorios personalizados cuando es hora de reponer producto"
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="step-navigation">
+                    <button class="btn-secondary" id="briefingBackBtn">
+                        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7"></path>
+                        </svg>
+                        <span>Volver</span>
+                    </button>
+                    <button class="btn-primary" id="generateBtn" disabled>
+                        <svg class="sparkles-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.962 0L9.937 15.5Z"></path>
+                        </svg>
+                        <span>Generar jugada estratégica</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Result Screen -->
+            <section class="screen" id="resultScreen" style="display: none;">
+                <div class="result-header">
+                    <div class="result-badge">
+                        <svg class="sparkles-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.962 0L9.937 15.5Z"></path>
+                        </svg>
+                        <span>¡Jugada generada!</span>
+                        <svg class="sparkles-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.962 0L9.937 15.5Z"></path>
+                        </svg>
+                    </div>
+                    <h2>Tu <span class="gradient-text">estrategia</span> está lista</h2>
+                    <p>Aquí está tu jugada personalizada basada en la metodología GRIP</p>
+                </div>
+                
+                <div class="result-content">
+                    <div class="result-main">
+                        <div class="result-card">
+                            <div class="objective-section">
+                                <div class="objective-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <circle cx="12" cy="12" r="6"></circle>
+                                        <circle cx="12" cy="12" r="2"></circle>
+                                    </svg>
+                                </div>
+                                <div class="objective-text">
+                                    <span class="label">Objetivo</span>
+                                    <h3 id="resultObjective">Activación</h3>
+                                </div>
+                            </div>
+                            
+                            <div class="separator"></div>
+                            
+                            <div class="hypothesis-section">
+                                <div class="section-title">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path>
+                                    </svg>
+                                    <h4>🧪 Hipótesis</h4>
+                                </div>
+                                <div class="hypothesis-content">
+                                    <p id="resultHypothesis">Si optimizamos el onboarding...</p>
+                                </div>
+                            </div>
+                            
+                            <div class="play-section">
+                                <div class="section-title">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polygon points="13,2 3,14 12,14 11,22 21,10 12,10 13,2"></polygon>
+                                    </svg>
+                                    <h4>💡 Jugada propuesta</h4>
+                                </div>
+                                <div class="play-content">
+                                    <p id="resultPlay">Crear un flow de activación...</p>
+                                </div>
+                            </div>
+                            
+                            <div class="details-grid">
+                                <div class="detail-item">
+                                    <div class="detail-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M3 3v5h5M3 21v-5h5M21 3v5h-5M21 21v-5h-5"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="detail-content">
+                                        <span class="detail-label">📊 Métrica clave</span>
+                                        <p id="resultMetric">Tasa de primer compra</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="detail-item">
+                                    <div class="detail-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <polyline points="12,6 12,12 16,14"></polyline>
+                                        </svg>
+                                    </div>
+                                    <div class="detail-content">
+                                        <span class="detail-label">⏳ Duración</span>
+                                        <p id="resultDuration">14-21 días</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="detail-item">
+                                    <div class="detail-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M14 9h1.5a2.5 2.5 0 0 0 0-5H14M6 9v10M14 9v10"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="detail-content">
+                                        <span class="detail-label">🧬 Tipo de test</span>
+                                        <div class="badge" id="resultType">A/B Simple</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="result-actions">
+                            <button class="btn-primary" id="createAnotherBtn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 4v6h6M23 20v-6h-6"></path>
+                                    <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path>
+                                </svg>
+                                <span>Crear otra jugada</span>
+                            </button>
+                            <div class="secondary-actions">
+                                <button class="btn-secondary" id="downloadBtn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"></path>
+                                    </svg>
+                                    <span>Descargar</span>
+                                </button>
+                                <button class="btn-secondary" id="shareBtn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                                        <polyline points="16,6 12,2 8,6"></polyline>
+                                        <line x1="12" y1="2" x2="12" y2="15"></line>
+                                    </svg>
+                                    <span>Compartir</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="result-sidebar">
+                        <div class="summary-card">
+                            <div class="card-header">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                                </svg>
+                                <h4>Resumen del test</h4>
+                            </div>
+                            <div class="summary-content">
+                                <div class="summary-item">
+                                    <span class="summary-label">Objetivo seleccionado</span>
+                                    <p id="summaryObjective">Activación</p>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">Canales a usar</span>
+                                    <div class="channels-badges" id="summaryChannels">
+                                        <!-- Channels will be populated by JavaScript -->
+                                    </div>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">Métrica objetivo</span>
+                                    <p id="summaryMetric">Tasa de primer compra</p>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">Tu briefing</span>
+                                    <p id="summaryBriefing">Quiero que los usuarios...</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="next-steps-card">
+                            <div class="card-header">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                                <h4>Próximos pasos</h4>
+                            </div>
+                            <div class="next-steps-list">
+                                <div class="next-step">
+                                    <div class="step-bullet"></div>
+                                    <span>Definir segmentos de audiencia específicos</span>
+                                </div>
+                                <div class="next-step">
+                                    <div class="step-bullet"></div>
+                                    <span>Crear variantes A y B del contenido</span>
+                                </div>
+                                <div class="next-step">
+                                    <div class="step-bullet"></div>
+                                    <span>Configurar tracking y métricas</span>
+                                </div>
+                                <div class="next-step">
+                                    <div class="step-bullet"></div>
+                                    <span>Lanzar test con sample size adecuado</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Loading Screen -->
+            <section class="screen loading-screen" id="loadingScreen" style="display: none;">
+                <div class="loading-content">
+                    <div class="loading-spinner">
+                        <div class="spinner"></div>
+                    </div>
+                    <h2>Generando jugada...</h2>
+                    <p>Estamos creando tu estrategia personalizada</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <span>Desarrollado por</span>
+                    <a href="#" class="footer-link">Ukelele Growth Marketing</a>
+                </div>
+                <div class="footer-right">
+                    <span>Hecho en Argentina</span>
+                    <span class="flag">🇦🇷</span>
+                </div>
+            </div>
+            <div class="footer-note">
+                <p>GRIP Express utiliza la metodología GRIP (Growth Retention Impact Playbook) para generar estrategias de retención basadas en datos.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
