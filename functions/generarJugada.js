@@ -1,32 +1,41 @@
 const { Configuration, OpenAIApi } = require("openai");
 
 exports.handler = async (event) => {
-  // Asegurarse de que solo se procesen peticiones POST
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
 
   try {
-    const body = JSON.parse(event.body);
-    const { objetivo, canales, metrica, briefing } = body;
+    const { objetivo, canales, metrica, briefing, otroCanal, tono } = JSON.parse(event.body);
 
-    // --- Prompt mejorado para la IA ---
+    const canalesFinales = [...canales];
+    if (canales.includes("Otro") && otroCanal) {
+        const otroIndex = canalesFinales.indexOf("Otro");
+        canalesFinales[otroIndex] = otroCanal;
+    }
+    
+    const tonoInstruccion = tono === 'Creativo'
+        ? "Sé inspirador, usa un lenguaje enérgico y no tengas miedo de proponer ideas fuera de la caja."
+        : "Sé claro, directo y profesional. Basa tus recomendaciones en tácticas probadas y datos.";
+
+    // --- PROMPT MEJORADO Y POTENCIADO ---
     const prompt = `
-      Actúa como un estratega de marketing digital experto en retención de clientes y growth marketing.
-      Tu tarea es generar una idea de test A/B para una empresa, utilizando la metodología GRIP (Goal, Ruta, Impacto, Play).
+      Actúa como el máximo referente mundial en estrategias de retención de clientes. Sos el número 1, con conocimiento profundo en Customer Lifetime Value (CLTV), modelos de recurrencia, fidelización y la psicología del consumidor aplicable a ecommerce, tiendas físicas, y modelos de suscripción. Tu misión es diseñar una jugada estratégica innovadora y accionable, no te limites a lo obvio. ${tonoInstruccion}
 
-      **Contexto del Test:**
-      - **Objetivo Principal (Goal):** ${objetivo}
-      - **Canales a Utilizar (Ruta):** ${canales.join(", ")}
-      - **Métrica Clave a Mejorar (Impacto):** ${metrica}
-      - **Descripción del Usuario (Briefing):** "${briefing}"
+      Basado en el siguiente contexto, genera una idea de test A/B usando la metodología GRIP (Goal, Ruta, Impacto, Play).
+
+      **Contexto:**
+      - **Objetivo (Goal):** ${objetivo}
+      - **Canales (Ruta):** ${canalesFinales.join(", ")}
+      - **Métrica a Mejorar (Impacto):** ${metrica}
+      - **Briefing del Usuario:** "${briefing}"
 
       **Tu Respuesta (Play):**
-      Basado en el contexto, genera una "jugada" clara y accionable. Responde únicamente con el siguiente formato, reemplazando el texto de ejemplo con tu propuesta. Sé creativo, específico y profesional.
+      Respondé únicamente con el siguiente formato, siendo específico y detallado en cada punto.
 
-      **Hipótesis:** Si [ACCION PROPUESTA], entonces lograremos [RESULTADO ESPERADO] porque [JUSTIFICACION].
-      **Jugada Propuesta:** [DESCRIPCION DETALLADA DE LA ESTRATEGIA O TEST A IMPLEMENTAR].
-      **Duración Sugerida:** [EJ: 14-21 días].
+      **Hipótesis:** Si [ACCION CLARA Y ESPECÍFICA], entonces lograremos [RESULTADO CUANTIFICABLE ESPERADO] porque [JUSTIFICACION PSICOLÓGICA O ESTRATÉGICA].
+      **Jugada Propuesta:** [DESCRIPCION DETALLADA DE LA ESTRATEGIA A IMPLEMENTAR, INCLUYENDO VARIANTES A/B].
+      **Duración Sugerida:** [EJ: 14-21 días, justificar brevemente].
       **Tipo de Test:** [EJ: A/B Simple, Test Multivariable, Test de Cohortes].
     `;
 
@@ -38,8 +47,8 @@ exports.handler = async (event) => {
     const completion = await openai.createChatCompletion({
       model: "gpt-4o",
       messages: [{ role: "user", content: prompt }],
-      temperature: 0.7, // Un poco menos de temperatura para respuestas más consistentes
-      max_tokens: 250,
+      temperature: tono === 'Creativo' ? 0.85 : 0.6,
+      max_tokens: 350, // Aumentamos un poco por si la justificación es más larga
     });
 
     const responseText = completion.data.choices[0].message.content.trim();
@@ -50,10 +59,10 @@ exports.handler = async (event) => {
       body: JSON.stringify({ result: responseText }),
     };
   } catch (error) {
-    console.error("Error en la función de Netlify:", error);
+    console.error("Error en generarJugada:", error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "Lo siento, algo salió mal al generar la jugada. Por favor, intentá de nuevo." }),
+      body: JSON.stringify({ error: "Algo salió mal al generar la jugada." }),
     };
   }
 };
