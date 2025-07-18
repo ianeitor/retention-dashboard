@@ -201,6 +201,7 @@ p {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    cursor: pointer;
 }
 
 .step-circle {
@@ -227,6 +228,10 @@ p {
 .step.completed .step-circle {
     background-color: var(--grip-primary);
     color: #000;
+}
+
+.step.completed:hover .step-circle {
+    transform: scale(1.1);
 }
 
 .step-label {
@@ -1543,38 +1548,209 @@ p {
 .text-muted {
     color: var(--muted-foreground);
 }
-/* Ajustes para los botones de la pantalla de resultado */
+/* ---- NUEVOS ESTILOS ---- */
+
+/* Estilos para el Historial */
+.history-card {
+    background-color: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+}
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.history-item {
+    font-size: 0.875rem;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+.history-item:hover {
+    background-color: var(--muted);
+    border-color: var(--grip-primary);
+}
+.history-item strong {
+    color: var(--grip-primary);
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+/* Estilos para el Tono de IA */
+.tone-section {
+    text-align: center;
+    margin: 2rem 0;
+}
+.tone-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+.btn-tone {
+    padding: 0.5rem 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 2rem;
+    background-color: transparent;
+    color: var(--muted-foreground);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.btn-tone.active {
+    background-color: var(--grip-primary);
+    color: #000;
+    font-weight: var(--font-weight-medium);
+    border-color: var(--grip-primary);
+}
+
+/* Estilos para el Input de "Otro" Canal */
+.other-input {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border);
+    background-color: var(--card);
+    color: var(--foreground);
+    font-size: 1rem;
+}
+.other-input:focus {
+    outline: none;
+    border-color: var(--grip-primary);
+}
+
+/* Animación para la pantalla de carga */
+@keyframes spin-reverse { 0% { transform: rotate(0deg); } 100% { transform: rotate(-360deg); } }
+.spinner-outer {
+    width: 3rem;
+    height: 3rem;
+    border: 3px solid var(--border);
+    border-top: 3px solid var(--grip-primary);
+    border-radius: 50%;
+    animation: spin 1.5s linear infinite;
+    position: absolute;
+}
+.spinner-inner {
+    width: 2rem;
+    height: 2rem;
+    border: 3px solid var(--border);
+    border-bottom: 3px solid var(--grip-secondary);
+    border-radius: 50%;
+    animation: spin-reverse 1s linear infinite;
+    position: absolute;
+}
+.loading-spinner {
+    position: relative;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Animación para la pantalla de resultados */
+@keyframes glow {
+    0% { box-shadow: 0 0 5px var(--grip-glow); }
+    50% { box-shadow: 0 0 20px 5px var(--grip-glow); }
+    100% { box-shadow: 0 0 5px var(--grip-glow); }
+}
+.celebrate {
+    animation: glow 1.5s ease-in-out;
+}
+
+/* Estilos para el Briefing Builder (Modal) */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 100; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.6);
+    backdrop-filter: blur(5px);
+}
+.modal-content {
+    background-color: var(--card);
+    margin: 10% auto;
+    padding: 2rem;
+    border: 1px solid var(--border);
+    width: 80%;
+    max-width: 600px;
+    border-radius: var(--radius);
+    position: relative;
+}
+.modal-close {
+    color: var(--muted-foreground);
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 2rem;
+    font-weight: bold;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+.briefing-actions {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+.builder-step {
+    margin-bottom: 2rem;
+}
+.builder-step h4 {
+    margin-bottom: 1rem;
+}
+.builder-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+.builder-option {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.builder-option.selected {
+    background-color: var(--grip-accent);
+    border-color: var(--grip-primary);
+    color: var(--grip-primary);
+    font-weight: 500;
+}
+
+/* Corrección botones del final */
 .result-actions {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 1rem;
-    margin-top: 2rem;
 }
 
 .result-actions .btn-primary {
-    padding: 0.75rem 1.5rem; /* Hacemos el botón principal un poco más compacto */
+    padding: 0.75rem 1.5rem;
 }
 
-.secondary-actions {
-    display: flex;
-    gap: 0.75rem;
-}
-
-/* Evitamos que los botones secundarios se estiren */
 .secondary-actions .btn-secondary {
-    flex: 0 1 auto; /* Esto previene el crecimiento descontrolado */
+    flex: 0 1 auto;
 }
 
-/* Ajustamos el tamaño de los íconos (SVGs) dentro de los botones de acción */
 .result-actions svg {
     width: 1rem;
     height: 1rem;
     margin-right: 0.5rem;
 }
 
-/* Ajustamos el tamaño del texto de los botones */
 .result-actions span {
     font-size: 0.9rem;
 }
