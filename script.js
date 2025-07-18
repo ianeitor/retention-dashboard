@@ -493,18 +493,39 @@ async function generatePlay() {
 
 function parseAIResponse(responseText) {
     const play = {};
-    responseText.split('\n').forEach(line => {
-        if (line.startsWith('**Hipótesis:**')) play.hipotesis = line.replace('**Hipótesis:**', '').trim();
-        else if (line.startsWith('**Jugada Propuesta:**')) play.jugada = line.replace('**Jugada Propuesta:**', '').trim();
-        else if (line.startsWith('**Duración Sugerida:**')) play.duracion = line.replace('**Duración Sugerida:**', '').trim();
-        else if (line.startsWith('**Tipo de Test:**')) play.tipo = line.replace('**Tipo de Test:**', '').trim();
+
+    const patterns = {
+        hipotesis: /^(\*\*| *)Hipótesis:(\*\*| *)/i,
+        jugada: /^(\*\*| *)Jugada Propuesta:(\*\*| *)/i,
+        duracion: /^(\*\*| *)Duración Sugerida:(\*\*| *)/i,
+        tipo: /^(\*\*| *)Tipo de Test:(\*\*| *)/i
+    };
+
+    const lines = responseText.split('\n');
+    let currentKey = null;
+    
+    lines.forEach(line => {
+        let matched = false;
+        for (const [key, pattern] of Object.entries(patterns)) {
+            if (pattern.test(line)) {
+                play[key] = line.replace(pattern, '').trim();
+                currentKey = key;
+                matched = true;
+                break;
+            }
+        }
+        // Si una línea no coincide con un nuevo patrón pero pertenece a la sección anterior (por saltos de línea), la adjunta.
+        if (!matched && currentKey && line.trim()) {
+            play[currentKey] += '\n' + line.trim();
+        }
     });
+
     return {
         objetivo: appState.data.objetivo,
         hipotesis: play.hipotesis || "No se pudo generar una hipótesis.",
         jugada: play.jugada || "No se pudo generar una jugada.",
         metrica: appState.data.metrica,
-        duracion: play.duracion || "14 días",
+        duracion: play.duracion || "14-21 días",
         tipo: play.tipo || "A/B Simple"
     };
 }
