@@ -1754,3 +1754,21 @@ p {
 .result-actions span {
     font-size: 0.9rem;
 }
+/* --- Ajustes Finales para la Grilla de Detalles --- */
+
+.details-grid {
+    align-items: stretch; /* Asegura que todos los items de la grilla ocupen la misma altura */
+}
+
+.detail-item {
+    height: 100%; /* Obliga a la tarjeta a ocupar toda la altura de su celda en la grilla */
+    display: flex;
+    flex-direction: column; /* Apila el contenido verticalmente */
+}
+
+.detail-content {
+    flex-grow: 1; /* Permite que esta sección crezca para ocupar el espacio disponible */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra el contenido verticalmente */
+}
