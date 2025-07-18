@@ -551,3 +551,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mostrar pantalla inicial
     showScreen('welcomeScreen');
 });
+async function fetchGenerarJugada() {
+  try {
+    const response = await fetch("/.netlify/functions/generarJugada", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(appState.data)
+    });
+
+    const result = await response.json();
+    appState.generatedPlay.ia = result.result || "No se pudo generar la jugada.";
+
+    const resultEl = document.getElementById("resultRaw");
+    if (resultEl) resultEl.textContent = appState.generatedPlay.ia;
+
+  } catch (error) {
+    console.error("Error al generar jugada con IA:", error);
+    appState.generatedPlay.ia = "Error al generar jugada con IA.";
+  }
+}
