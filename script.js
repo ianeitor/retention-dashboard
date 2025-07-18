@@ -136,44 +136,17 @@ const metricsByGoal = {
     ]
 };
 
-// Plantillas de jugadas
-const playTemplates = {
-    'Activación': {
-        hipotesis: 'Si optimizamos el onboarding en {canales} con mensajes personalizados, entonces aumentará la tasa de activación',
-        jugada: 'Crear un flow de activación multicanal con secuencia automatizada de 7 días. Incluir tutorial interactivo, incentivos progresivos y recordatorios contextuales.',
-        getType: (canales) => canales.length === 1 ? 'A/B Simple' : canales.length <= 3 ? 'Test Multicanal' : 'Test de Cohortes'
-    },
-    'Recompra': {
-        hipotesis: 'Si enviamos triggers de recompra personalizados vía {canales} basados en comportamiento histórico, entonces aumentará la frecuencia de compra',
-        jugada: 'Implementar sistema de retargeting inteligente con ventanas temporales optimizadas. Personalizar ofertas según historial de compra y preferencias.',
-        getType: (canales) => canales.length === 1 ? 'A/B Simple' : canales.length <= 3 ? 'Test Multivariable' : 'Test de Cohortes'
-    },
-    'Reactivación': {
-        hipotesis: 'Si diseñamos una secuencia de reactivación escalonada en {canales} con incentivos progresivos, entonces recuperaremos usuarios dormidos',
-        jugada: 'Crear campaña de win-back con 3 oleadas: recordatorio sutil, oferta especial y última oportunidad. Segmentar por tiempo de inactividad.',
-        getType: (canales) => canales.length === 1 ? 'A/B Simple' : canales.length <= 3 ? 'Test Multivariable' : 'Test de Cohortes'
-    },
-    'Fidelización': {
-        hipotesis: 'Si implementamos un programa de fidelización gamificado en {canales} con recompensas relevantes, entonces aumentará el LTV y retención',
-        jugada: 'Diseñar sistema de puntos con niveles, desafíos semanales y recompensas exclusivas. Incluir elementos sociales y logros compartibles.',
-        getType: (canales) => canales.length === 1 ? 'A/B Simple' : canales.length <= 3 ? 'Test Multivariable' : 'Test de Ecosistema'
-    }
-};
-
 // Utilidades
 function showScreen(screenId) {
-    // Ocultar todas las screens
     document.querySelectorAll('.screen').forEach(screen => {
         screen.style.display = 'none';
     });
     
-    // Mostrar la screen solicitada
     const targetScreen = document.getElementById(screenId);
     if (targetScreen) {
         targetScreen.style.display = 'block';
     }
     
-    // Actualizar progress indicator
     updateProgressIndicator();
 }
 
@@ -182,18 +155,16 @@ function updateProgressIndicator() {
     const steps = document.querySelectorAll('.step');
     const connectors = document.querySelectorAll('.step-connector');
     
-    // Mostrar/ocultar progress indicator
-    const showProgress = !['welcome', 'result', 'loading'].includes(appState.currentStep);
+    const showProgress = !['welcome', 'resultScreen', 'loadingScreen'].includes(appState.currentStep);
     progressIndicator.style.display = showProgress ? 'block' : 'none';
     
     if (!showProgress) return;
     
-    // Mapear steps a números
     const stepNumbers = {
-        goal: 1,
-        channels: 2,
-        metrics: 3,
-        briefing: 4
+        goalScreen: 1,
+        channelsScreen: 2,
+        metricsScreen: 3,
+        briefingScreen: 4
     };
     
     const currentStepNumber = stepNumbers[appState.currentStep] || 0;
@@ -201,13 +172,10 @@ function updateProgressIndicator() {
     steps.forEach((step, index) => {
         const stepNumber = index + 1;
         const stepCircle = step.querySelector('.step-circle');
-        const stepLabel = step.querySelector('.step-label');
         
-        // Limpiar clases
         step.classList.remove('active', 'completed');
         
         if (stepNumber < currentStepNumber) {
-            // Paso completado
             step.classList.add('completed');
             stepCircle.innerHTML = `
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 0.75rem; height: 0.75rem;">
@@ -215,23 +183,16 @@ function updateProgressIndicator() {
                 </svg>
             `;
         } else if (stepNumber === currentStepNumber) {
-            // Paso actual
             step.classList.add('active');
             stepCircle.innerHTML = stepNumber;
         } else {
-            // Paso futuro
             stepCircle.innerHTML = stepNumber;
         }
     });
     
-    // Actualizar conectores
     connectors.forEach((connector, index) => {
         const stepNumber = index + 1;
-        if (stepNumber < currentStepNumber) {
-            connector.classList.add('active');
-        } else {
-            connector.classList.remove('active');
-        }
+        connector.classList.toggle('active', stepNumber < currentStepNumber);
     });
 }
 
@@ -246,97 +207,51 @@ function toggleTheme() {
     appState.isDark = !appState.isDark;
     document.body.classList.toggle('dark', appState.isDark);
     
-    // Actualizar icono
     const themeIcon = document.getElementById('themeIcon');
-    if (appState.isDark) {
-        themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
-    } else {
-        themeIcon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>';
-    }
+    themeIcon.innerHTML = appState.isDark 
+        ? '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>'
+        : '<circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>';
 }
 
 // Funciones de navegación
-function goToStep(step) {
-    appState.currentStep = step;
-    showScreen(step + 'Screen');
-}
-
-function nextStep() {
-    const stepOrder = ['welcome', 'goal', 'channels', 'metrics', 'briefing', 'result'];
-    const currentIndex = stepOrder.indexOf(appState.currentStep);
-    if (currentIndex < stepOrder.length - 1) {
-        goToStep(stepOrder[currentIndex + 1]);
-    }
-}
-
-function prevStep() {
-    const stepOrder = ['welcome', 'goal', 'channels', 'metrics', 'briefing', 'result'];
-    const currentIndex = stepOrder.indexOf(appState.currentStep);
-    if (currentIndex > 0) {
-        goToStep(stepOrder[currentIndex - 1]);
-    }
+function goToStep(stepId) {
+    appState.currentStep = stepId;
+    showScreen(stepId);
 }
 
 // Funciones para cada paso
 function initGoalStep() {
-    const goalCards = document.querySelectorAll('.goal-card');
-    goalCards.forEach(card => {
+    document.querySelectorAll('.goal-card').forEach(card => {
         card.addEventListener('click', () => {
             const goal = card.getAttribute('data-goal');
-            
-            // Limpiar selección anterior
-            goalCards.forEach(c => c.classList.remove('selected'));
-            
-            // Seleccionar nueva opción
+            document.querySelectorAll('.goal-card').forEach(c => c.classList.remove('selected'));
             card.classList.add('selected');
             appState.data.objetivo = goal;
-            
-            // Habilitar botón continuar
             updateButtonState('goalNextBtn', true);
         });
     });
 }
 
 function initChannelsStep() {
-    const channelCards = document.querySelectorAll('.channel-card');
-    channelCards.forEach(card => {
+    document.querySelectorAll('.channel-card').forEach(card => {
         card.addEventListener('click', () => {
             const channel = card.getAttribute('data-channel');
-            
-            // Toggle selección
+            card.classList.toggle('selected');
             if (appState.data.canales.includes(channel)) {
-                // Quitar selección
                 appState.data.canales = appState.data.canales.filter(c => c !== channel);
-                card.classList.remove('selected');
             } else {
-                // Agregar selección
                 appState.data.canales.push(channel);
-                card.classList.add('selected');
             }
-            
-            // Actualizar indicador de canales seleccionados
-            updateChannelsIndicator();
-            
-            // Habilitar/deshabilitar botón continuar
             updateButtonState('channelsNextBtn', appState.data.canales.length > 0);
         });
     });
-}
-
-function updateChannelsIndicator() {
-    const count = appState.data.canales.length;
-    // Aquí podrías actualizar un indicador visual si lo tuvieras
-    console.log(`${count} canales seleccionados`);
 }
 
 function initMetricsStep() {
     const goalContext = document.getElementById('goalContext');
     const metricsGrid = document.getElementById('metricsGrid');
     
-    // Actualizar contexto
     goalContext.textContent = appState.data.objetivo;
-    
-    // Generar métricas basadas en el objetivo
     const metrics = metricsByGoal[appState.data.objetivo] || [];
     
     metricsGrid.innerHTML = '';
@@ -344,7 +259,6 @@ function initMetricsStep() {
         const metricCard = document.createElement('div');
         metricCard.className = 'metric-card';
         metricCard.setAttribute('data-metric', metric.id);
-        
         metricCard.innerHTML = `
             <div class="metric-header">
                 <div class="metric-icon">
@@ -364,19 +278,12 @@ function initMetricsStep() {
                 </div>
             </div>
         `;
-        
         metricCard.addEventListener('click', () => {
-            // Limpiar selección anterior
             document.querySelectorAll('.metric-card').forEach(c => c.classList.remove('selected'));
-            
-            // Seleccionar nueva opción
             metricCard.classList.add('selected');
             appState.data.metrica = metric.id;
-            
-            // Habilitar botón continuar
             updateButtonState('metricsNextBtn', true);
         });
-        
         metricsGrid.appendChild(metricCard);
     });
 }
@@ -384,22 +291,15 @@ function initMetricsStep() {
 function initBriefingStep() {
     const briefingText = document.getElementById('briefingText');
     const charCount = document.getElementById('charCount');
-    const exampleBtns = document.querySelectorAll('.example-btn');
     
-    // Actualizar contador de caracteres
     briefingText.addEventListener('input', () => {
         const length = briefingText.value.length;
         charCount.textContent = length;
-        
-        // Habilitar/deshabilitar botón generar
         updateButtonState('generateBtn', length >= 10);
-        
-        // Actualizar estado
         appState.data.briefing = briefingText.value;
     });
     
-    // Ejemplos clickeables
-    exampleBtns.forEach(btn => {
+    document.querySelectorAll('.example-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             const example = btn.getAttribute('data-example');
             briefingText.value = example;
@@ -409,39 +309,68 @@ function initBriefingStep() {
 }
 
 async function generatePlay() {
+    if (appState.isGenerating) return;
+
     appState.isGenerating = true;
+    goToStep('loadingScreen');
     
-    // Mostrar pantalla de loading
-    showScreen('loadingScreen');
+    try {
+        const response = await fetch("/.netlify/functions/generarJugada", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(appState.data)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Error en el servidor');
+        }
+
+        const data = await response.json();
+        appState.generatedPlay = parseAIResponse(data.result);
+        
+        populateResult();
+        goToStep('resultScreen');
+
+    } catch (error) {
+        console.error("Error al generar jugada con IA:", error);
+        alert(`Error: ${error.message}`);
+        goToStep('briefingScreen'); 
+    } finally {
+        appState.isGenerating = false;
+    }
+}
+
+function parseAIResponse(responseText) {
+    const lines = responseText.split('\n');
+    const play = {};
+
+    lines.forEach(line => {
+        if (line.startsWith('**Hipótesis:**')) {
+            play.hipotesis = line.replace('**Hipótesis:**', '').trim();
+        } else if (line.startsWith('**Jugada Propuesta:**')) {
+            play.jugada = line.replace('**Jugada Propuesta:**', '').trim();
+        } else if (line.startsWith('**Duración Sugerida:**')) {
+            play.duracion = line.replace('**Duración Sugerida:**', '').trim();
+        } else if (line.startsWith('**Tipo de Test:**')) {
+            play.tipo = line.replace('**Tipo de Test:**', '').trim();
+        }
+    });
     
-    // Simular tiempo de generación
-    await new Promise(resolve => setTimeout(resolve, 2500));
-    
-    // Generar jugada basada en los datos
-    const template = playTemplates[appState.data.objetivo];
-    const canalesText = appState.data.canales.join(' y ');
-    const duracionBase = appState.data.canales.length <= 2 ? '14-21 días' : '21-30 días';
-    
-    appState.generatedPlay = {
+    return {
         objetivo: appState.data.objetivo,
-        hipotesis: template.hipotesis.replace('{canales}', canalesText),
-        jugada: template.jugada,
+        hipotesis: play.hipotesis || "No se pudo generar una hipótesis.",
+        jugada: play.jugada || "No se pudo generar una jugada.",
         metrica: appState.data.metrica,
-        duracion: duracionBase,
-        tipo: template.getType(appState.data.canales)
+        duracion: play.duracion || "14 días",
+        tipo: play.tipo || "A/B Simple"
     };
-    
-    // Mostrar resultado
-    populateResult();
-    goToStep('result');
-    
-    appState.isGenerating = false;
 }
 
 function populateResult() {
     const play = appState.generatedPlay;
-    
-    // Llenar datos principales
+    if (!play) return;
+
     document.getElementById('resultObjective').textContent = play.objetivo;
     document.getElementById('resultHypothesis').textContent = play.hipotesis;
     document.getElementById('resultPlay').textContent = play.jugada;
@@ -449,12 +378,10 @@ function populateResult() {
     document.getElementById('resultDuration').textContent = play.duracion;
     document.getElementById('resultType').textContent = play.tipo;
     
-    // Llenar resumen
     document.getElementById('summaryObjective').textContent = appState.data.objetivo;
     document.getElementById('summaryMetric').textContent = appState.data.metrica;
     document.getElementById('summaryBriefing').textContent = `"${appState.data.briefing}"`;
     
-    // Llenar badges de canales
     const channelsBadges = document.getElementById('summaryChannels');
     channelsBadges.innerHTML = '';
     appState.data.canales.forEach(canal => {
@@ -474,101 +401,46 @@ function resetWizard() {
     };
     appState.generatedPlay = null;
     
-    // Limpiar formularios
-    document.querySelectorAll('.goal-card').forEach(card => card.classList.remove('selected'));
-    document.querySelectorAll('.channel-card').forEach(card => card.classList.remove('selected'));
-    document.querySelectorAll('.metric-card').forEach(card => card.classList.remove('selected'));
+    document.querySelectorAll('.goal-card, .channel-card, .metric-card').forEach(card => card.classList.remove('selected'));
     document.getElementById('briefingText').value = '';
     document.getElementById('charCount').textContent = '0';
     
-    // Deshabilitar botones
     updateButtonState('goalNextBtn', false);
     updateButtonState('channelsNextBtn', false);
     updateButtonState('metricsNextBtn', false);
     updateButtonState('generateBtn', false);
     
-    // Volver al primer paso
-    goToStep('goal');
+    goToStep('goalScreen');
 }
 
 // Event listeners
 document.addEventListener('DOMContentLoaded', () => {
-    // Inicializar tema
     document.body.classList.add('dark');
     
-    // Theme toggle
     document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+    document.getElementById('startButton').addEventListener('click', () => goToStep('goalScreen'));
     
-    // Welcome screen
-    document.getElementById('startButton').addEventListener('click', () => {
-        goToStep('goal');
-    });
-    
-    // Navigation buttons
-    document.getElementById('goalNextBtn').addEventListener('click', () => {
-        goToStep('channels');
-    });
-    
-    document.getElementById('channelsBackBtn').addEventListener('click', () => {
-        goToStep('goal');
-    });
-    
+    // Botones de navegación
+    document.getElementById('goalNextBtn').addEventListener('click', () => goToStep('channelsScreen'));
+    document.getElementById('channelsBackBtn').addEventListener('click', () => goToStep('goalScreen'));
     document.getElementById('channelsNextBtn').addEventListener('click', () => {
         initMetricsStep();
-        goToStep('metrics');
+        goToStep('metricsScreen');
     });
-    
-    document.getElementById('metricsBackBtn').addEventListener('click', () => {
-        goToStep('channels');
-    });
-    
-    document.getElementById('metricsNextBtn').addEventListener('click', () => {
-        goToStep('briefing');
-    });
-    
-    document.getElementById('briefingBackBtn').addEventListener('click', () => {
-        goToStep('metrics');
-    });
-    
+    document.getElementById('metricsBackBtn').addEventListener('click', () => goToStep('channelsScreen'));
+    document.getElementById('metricsNextBtn').addEventListener('click', () => goToStep('briefingScreen'));
+    document.getElementById('briefingBackBtn').addEventListener('click', () => goToStep('metricsScreen'));
     document.getElementById('generateBtn').addEventListener('click', generatePlay);
     
-    // Result screen
+    // Botones de la pantalla de resultado
     document.getElementById('createAnotherBtn').addEventListener('click', resetWizard);
+    document.getElementById('downloadBtn').addEventListener('click', () => alert('Funcionalidad de descarga próximamente'));
+    document.getElementById('shareBtn').addEventListener('click', () => alert('Funcionalidad de compartir próximamente'));
     
-    document.getElementById('downloadBtn').addEventListener('click', () => {
-        alert('Funcionalidad de descarga próximamente');
-    });
-    
-    document.getElementById('shareBtn').addEventListener('click', () => {
-        alert('Funcionalidad de compartir próximamente');
-    });
-    
-    // Inicializar steps
+    // Inicializar los pasos
     initGoalStep();
     initChannelsStep();
     initBriefingStep();
     
-    // Mostrar pantalla inicial
-    showScreen('welcomeScreen');
+    goToStep('welcomeScreen');
 });
-async function fetchGenerarJugada() {
-  try {
-    const response = await fetch("/.netlify/functions/generarJugada", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(appState.data)
-    });
-
-    const result = await response.json();
-    appState.generatedPlay.ia = result.result || "No se pudo generar la jugada.";
-
-    const resultEl = document.getElementById("resultRaw");
-    if (resultEl) resultEl.textContent = appState.generatedPlay.ia;
-
-  } catch (error) {
-    console.error("Error al generar jugada con IA:", error);
-    appState.generatedPlay.ia = "Error al generar jugada con IA.";
-  }
-}
