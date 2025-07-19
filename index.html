@@ -57,7 +57,20 @@
     <main class="main-content">
         <div class="container">
             
-            <section class="screen" id="welcomeScreen">
+            <section class="screen" id="nameScreen">
+                <div class="welcome-content">
+                    <h2 class="welcome-title" id="nameTitle">Antes de empezar, ¿cuál es tu nombre?</h2>
+                    <input type="text" id="nameInput" class="other-input" placeholder="Escribe tu nombre aquí...">
+                    <button class="btn-primary" id="nameNextBtn" style="margin-top: 1rem;">
+                        <span>Continuar</span>
+                        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </section>
+
+            <section class="screen" id="welcomeScreen" style="display: none;">
                 <div class="welcome-content">
                     <div class="welcome-badge">
                         <svg class="sparkles-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -68,7 +81,7 @@
                     </div>
                     
                     <div class="welcome-title">
-                        <h1>Decime qué querés <span class="gradient-text">mover</span></h1>
+                        <h1 id="welcomeTitle">Decime qué querés <span class="gradient-text">mover</span></h1>
                         <h2>yo te tiro la <span class="gradient-text">jugada</span></h2>
                     </div>
                     
@@ -122,12 +135,13 @@
             <section class="screen step-screen" id="goalScreen" style="display: none;">
                 <div class="step-header">
                     <div class="step-badge">Paso 1 de 4</div>
-                    <h2>¿Qué querés lograr?</h2>
+                    <h2 id="goalTitle">¿Qué querés lograr?</h2>
                     <p>Elegí el objetivo principal que quieres trabajar con tu test</p>
                 </div>
                 
                 <div class="goals-grid">
                     <div class="goal-card" data-goal="Activación">
+                        <div class="selection-checkmark">✓</div>
                         <div class="goal-icon blue">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
@@ -144,6 +158,7 @@
                     </div>
                     
                     <div class="goal-card" data-goal="Recompra">
+                        <div class="selection-checkmark">✓</div>
                         <div class="goal-icon green">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M1 4h22M1 10h22M1 16h22"></path>
@@ -158,6 +173,7 @@
                     </div>
                     
                     <div class="goal-card" data-goal="Reactivación">
+                        <div class="selection-checkmark">✓</div>
                         <div class="goal-icon orange">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
@@ -172,6 +188,7 @@
                     </div>
                     
                     <div class="goal-card" data-goal="Fidelización">
+                        <div class="selection-checkmark">✓</div>
                         <div class="goal-icon pink">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
@@ -198,12 +215,13 @@
             <section class="screen step-screen" id="channelsScreen" style="display: none;">
                 <div class="step-header">
                     <div class="step-badge">Paso 2 de 4</div>
-                    <h2>¿Por dónde querés jugar<br><span class="gradient-text">esta jugada?</span></h2>
+                    <h2 id="channelsTitle">¿Por dónde querés jugar<br><span class="gradient-text">esta jugada?</span></h2>
                     <p>Seleccioná todos los canales que querés incluir en tu test</p>
                 </div>
                 
                 <div class="channels-grid">
                     <div class="channel-card" data-channel="Email">
+                        <div class="selection-checkmark">✓</div>
                         <div class="channel-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <rect width="20" height="16" x="2" y="4" rx="2"></rect>
@@ -214,14 +232,10 @@
                             <h3>Email</h3>
                             <p>Newsletters, automations</p>
                         </div>
-                        <div class="channel-checkbox">
-                            <svg class="plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M5 12h14M12 5v14"></path>
-                            </svg>
-                        </div>
                     </div>
                     
                     <div class="channel-card" data-channel="Push">
+                         <div class="selection-checkmark">✓</div>
                         <div class="channel-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect>
@@ -232,14 +246,10 @@
                             <h3>Push Notifications</h3>
                             <p>Mobile & web push</p>
                         </div>
-                        <div class="channel-checkbox">
-                           <svg class="plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M5 12h14M12 5v14"></path>
-                            </svg>
-                        </div>
                     </div>
                     
                     <div class="channel-card" data-channel="SMS">
+                         <div class="selection-checkmark">✓</div>
                         <div class="channel-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
@@ -249,14 +259,10 @@
                             <h3>SMS</h3>
                             <p>Text messages</p>
                         </div>
-                        <div class="channel-checkbox">
-                           <svg class="plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M5 12h14M12 5v14"></path>
-                            </svg>
-                        </div>
                     </div>
                     
                     <div class="channel-card" data-channel="App">
+                         <div class="selection-checkmark">✓</div>
                         <div class="channel-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <rect width="20" height="14" x="2" y="3" rx="2"></rect>
@@ -268,14 +274,10 @@
                             <h3>In-App</h3>
                             <p>Banners, modals</p>
                         </div>
-                        <div class="channel-checkbox">
-                           <svg class="plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M5 12h14M12 5v14"></path>
-                            </svg>
-                        </div>
                     </div>
                     
                     <div class="channel-card" data-channel="Ads">
+                         <div class="selection-checkmark">✓</div>
                         <div class="channel-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
@@ -286,14 +288,10 @@
                             <h3>Paid Ads</h3>
                             <p>Facebook, Google</p>
                         </div>
-                        <div class="channel-checkbox">
-                           <svg class="plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M5 12h14M12 5v14"></path>
-                            </svg>
-                        </div>
                     </div>
                     
                     <div class="channel-card" data-channel="Web">
+                         <div class="selection-checkmark">✓</div>
                         <div class="channel-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <circle cx="12" cy="12" r="10"></circle>
@@ -305,14 +303,10 @@
                             <h3>Website</h3>
                             <p>Landings, pop-ups</p>
                         </div>
-                        <div class="channel-checkbox">
-                           <svg class="plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M5 12h14M12 5v14"></path>
-                            </svg>
-                        </div>
                     </div>
                     
                     <div class="channel-card" data-channel="Tienda">
+                         <div class="selection-checkmark">✓</div>
                         <div class="channel-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M3 21h18l-2-7H5l-2 7zM5 12V7a4 4 0 0 1 8 0v5M9 12h6"></path>
@@ -322,14 +316,10 @@
                             <h3>Tienda Física</h3>
                             <p>Point of sale, staff</p>
                         </div>
-                        <div class="channel-checkbox">
-                           <svg class="plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M5 12h14M12 5v14"></path>
-                            </svg>
-                        </div>
                     </div>
                     
                     <div class="channel-card" data-channel="WhatsApp">
+                         <div class="selection-checkmark">✓</div>
                         <div class="channel-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
@@ -339,29 +329,20 @@
                             <h3>WhatsApp</h3>
                             <p>Business messaging</p>
                         </div>
-                        <div class="channel-checkbox">
-                           <svg class="plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M5 12h14M12 5v14"></path>
-                            </svg>
-                        </div>
                     </div>
                     <div class="channel-card" data-channel="Redes Sociales">
+                         <div class="selection-checkmark">✓</div>
                         <div class="channel-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
                         </div>
                         <div class="channel-content"><h3>Redes Sociales</h3><p>Contenido orgánico, DMs</p></div>
-                        <div class="channel-checkbox">
-                            <svg class="plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5v14"></path></svg>
-                        </div>
                     </div>
                     <div class="channel-card" data-channel="Otro">
+                         <div class="selection-checkmark">✓</div>
                         <div class="channel-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 18h2.5a2.5 2.5 0 1 0 0-5H11v-1a3 3 0 0 1 3-3h0a3 3 0 0 1 3 3v1h1.5a2.5 2.5 0 1 0 0-5H18M4 6h1m4 0h1m4 0h1"></path></svg>
                         </div>
                         <div class="channel-content"><h3>Otro</h3><p>Especificá tu canal</p></div>
-                        <div class="channel-checkbox">
-                            <svg class="plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5v14"></path></svg>
-                        </div>
                     </div>
                 </div>
                 <input type="text" id="otherChannelInput" class="other-input" placeholder="Escribí tu canal personalizado" style="display: none;">
@@ -385,7 +366,7 @@
             <section class="screen step-screen" id="metricsScreen" style="display: none;">
                 <div class="step-header">
                     <div class="step-badge">Paso 3 de 4</div>
-                    <h2>¿Qué métrica querés <span class="gradient-text">mover?</span></h2>
+                    <h2 id="metricsTitle">¿Qué métrica querés <span class="gradient-text">mover?</span></h2>
                     <p>Elegí la métrica principal para tu objetivo de <span id="goalContext">Activación</span></p>
                 </div>
                 
@@ -411,18 +392,14 @@
             <section class="screen step-screen" id="briefingScreen" style="display: none;">
                 <div class="step-header">
                     <div class="step-badge">Paso 4 de 4</div>
-                    <h2>Contame lo que querés <span class="gradient-text">lograr</span></h2>
-                    <p>Describí tu idea o usá nuestro asistente para crear un brief profesional.</p>
-                </div>
-
-                <div class="briefing-actions">
-                    <button class="btn-secondary" id="openBriefingBuilderBtn">
-                        <svg class="sparkles-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.962 0L9.937 15.5Z"></path></svg>
-                        <span>Armar briefing con IA (1 min)</span>
-                    </button>
+                    <h2 id="briefingTitle">Contame lo que querés <span class="gradient-text">lograr</span></h2>
+                    <p>Describí tu idea para crear un brief profesional.</p>
                 </div>
                 
                 <div class="briefing-card">
+                    <a href="#" id="openBriefingBuilderBtn" class="briefing-assistant-link">
+                        ✨ ¿Necesitas inspiración? Usá nuestro asistente
+                    </a>
                     <div class="briefing-input">
                         <textarea 
                             id="briefingText" 
@@ -448,27 +425,22 @@
                         <span class="char-count"><span id="charCount">0</span>/500</span>
                     </div>
                 </div>
-                
-                <div class="examples-section">
-                    <h3>
-                        <svg class="sparkles-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.962 0L9.937 15.5Z"></path>
-                        </svg>
-                        Ejemplos para inspirarte
-                    </h3>
-                    <div class="examples-list">
-                        <button class="example-btn" data-example="Quiero que los que compraron solo una vez vuelvan con una oferta especial en app">
-                            "Quiero que los que compraron solo una vez vuelvan con una oferta especial en app"
-                        </button>
-                        <button class="example-btn" data-example="Necesito activar usuarios que se registraron pero nunca compraron">
-                            "Necesito activar usuarios que se registraron pero nunca compraron"
-                        </button>
-                        <button class="example-btn" data-example="Reactivar clientes que no compran hace 6 meses con descuento progresivo">
-                            "Reactivar clientes que no compran hace 6 meses con descuento progresivo"
-                        </button>
+
+                <div class="additional-options">
+                    <div class="effort-section">
+                        <h4>Nivel de Esfuerzo</h4>
+                        <div class="tone-buttons">
+                            <button class="btn-tone" data-effort="Bajo">Bajo</button>
+                            <button class="btn-tone active" data-effort="Medio">Medio</button>
+                            <button class="btn-tone" data-effort="Alto">Alto</button>
+                        </div>
+                    </div>
+                    <div class="season-section">
+                        <h4>Estacionalidad (Opcional)</h4>
+                        <input type="text" id="seasonalityInput" class="other-input" placeholder="Ej: Black Friday, Día de la Madre...">
                     </div>
                 </div>
-                
+
                 <div class="tone-section">
                     <h4>Tono de la respuesta</h4>
                     <div class="tone-buttons">
@@ -501,7 +473,7 @@
                         </svg>
                         <span>¡Jugada generada!</span>
                     </div>
-                    <h2>Tu <span class="gradient-text">estrategia</span> está lista</h2>
+                    <h2 id="resultTitle">Tu <span class="gradient-text">estrategia</span> está lista</h2>
                     <p id="celebrationText">Aquí está tu jugada personalizada basada en la metodología GRIP</p>
                 </div>
                 
@@ -531,8 +503,8 @@
                                     </svg>
                                     <h4>🧪 Hipótesis</h4>
                                 </div>
-                                <div class="hypothesis-content">
-                                    <p id="resultHypothesis">Si optimizamos el onboarding...</p>
+                                <div class="hypothesis-content" contenteditable="true" id="resultHypothesis">
+                                    Si optimizamos el onboarding...
                                 </div>
                             </div>
                             
@@ -543,8 +515,18 @@
                                     </svg>
                                     <h4>💡 Jugada propuesta</h4>
                                 </div>
-                                <div class="play-content">
-                                    <p id="resultPlay">Crear un flow de activación...</p>
+                                <div class="play-content" contenteditable="true" id="resultPlay">
+                                    Crear un flow de activación...
+                                </div>
+                            </div>
+
+                            <div class="justification-section">
+                                <div class="section-title">
+                                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm-1 15v-5h2v5zm0-8V7h2v2z"/></svg>
+                                    <h4>🧠 Justificación Estratégica</h4>
+                                </div>
+                                <div class="justification-content">
+                                    <p id="resultJustification">Esta estrategia se enfoca en...</p>
                                 </div>
                             </div>
                             
@@ -609,7 +591,7 @@
                                         <polyline points="16,6 12,2 8,6"></polyline>
                                         <line x1="12" y1="2" x2="12" y2="15"></line>
                                     </svg>
-                                    <span>Compartir</span>
+                                    <span id="shareBtnText">Compartir</span>
                                 </button>
                             </div>
                         </div>
@@ -663,24 +645,8 @@
                                 </svg>
                                 <h4>Próximos pasos</h4>
                             </div>
-                            <div class="next-steps-list">
-                                <div class="next-step">
-                                    <div class="step-bullet"></div>
-                                    <span>Definir segmentos de audiencia específicos</span>
+                            <div class="next-steps-list" id="nextStepsList">
                                 </div>
-                                <div class="next-step">
-                                    <div class="step-bullet"></div>
-                                    <span>Crear variantes A y B del contenido</span>
-                                </div>
-                                <div class="next-step">
-                                    <div class="step-bullet"></div>
-                                    <span>Configurar tracking y métricas</span>
-                                </div>
-                                <div class="next-step">
-                                    <div class="step-bullet"></div>
-                                    <span>Lanzar test con sample size adecuado</span>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -707,7 +673,7 @@
         </div>
     </div>
 
-    <footer class="footer">
+    <footer class="footer" style="display: none;">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-left">
