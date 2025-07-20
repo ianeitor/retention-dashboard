@@ -727,5 +727,5 @@ document.addEventListener('DOMContentLoaded', () => {
     initBriefingStep();
     setupEnterKeyNavigation();
     
-    goToStep('nameScreen');
+    goToStep('welcomeScreen');
 });
